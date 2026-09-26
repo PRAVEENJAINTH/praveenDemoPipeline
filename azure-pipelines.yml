@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: agent
+  vmImage: 'ubuntu-latest'
 
 stages:
   - stage: terraforminit
@@ -18,18 +18,13 @@ stages:
         steps:
         - checkout: self
 
-        - task: TerraformInstaller@1
-          displayName: Install Terraform
-          inputs:
-            terraformVersion: 'latest'
-        - task: TerraformTask@1
+        - task: TerraformTask@5
           inputs:
             provider: 'azurerm'
             command: 'init'
-            backendServiceArm: 'first ragistration'
+            backendServiceArm: 'firstRagistration'
             backendAzureRmStorageAccountName: 'stagefile1233211'
             backendAzureRmContainerName: 'tfstate'
             backendAzureRmKey: 'dev.terraform'
-
 
 
