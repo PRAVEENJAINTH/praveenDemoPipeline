@@ -6,7 +6,7 @@
 trigger:
 - main
 pool:
-  name: 'agent'
+  name: 'PraveenPool'
 stages:
   - stage: terraforminit
     displayName: terraform init
@@ -15,13 +15,67 @@ stages:
         displayName: terraform init
         steps:
         - checkout: self
+        # - task: TerraformTask@5
+        #   inputs:
+        #     provider: 'azurerm'
+        #     command: 'init'
+        #     backendServiceArm: 'firstRagistration'
+        #     backendAzureRmStorageAccountName: 'firstpipeline99'
+        #     backendAzureRmContainerName: 'firstpipelinecontainer'
+        #     backendAzureRmKey: 'dev.terraform'
+          
         - task: TerraformTask@5
           inputs:
             provider: 'azurerm'
             command: 'init'
-            backendServiceArm: 'firstRagistration'
-            backendAzureRmStorageAccountName: 'stagefile1233211'
-            backendAzureRmContainerName: 'tfstate'
-            backendAzureRmKey: 'dev.terraform'
+            backendServiceArm: 'firstServiceConnection'
+            backendAzureRmStorageAccountName: 'firstpipeline99'
+            backendAzureRmContainerName: 'firstpipelinecontainer'
+            backendAzureRmKey: '3RJYBeMSnZHC2OyXnK260HoiKTCjp3cMwKIuIG1LcD0umS5R76PyY1es2LR1ZNku/5UX432YoFKj+AStfynl+g=='
 
+
+  - stage: terraformvalidate
+    displayName: terraform validate
+    jobs:
+      - job: 
+        displayName: terraform Validate
+        steps:
+          - checkout: self
+
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'firstServiceConnection'
+              backendAzureRmStorageAccountName: 'firstpipeline99'
+              backendAzureRmContainerName: 'firstpipelinecontainer'
+              backendAzureRmKey: '3RJYBeMSnZHC2OyXnK260HoiKTCjp3cMwKIuIG1LcD0umS5R76PyY1es2LR1ZNku'
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
+              environmentAzureRmUseIdTokenGeneration: true
+
+  - stage: terraformplan
+    displayName: terraform plan
+    jobs:
+      - job: 
+        displayName: terraform Plan
+        steps:
+          - checkout: self
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'firstServiceConnection'
+              backendAzureRmStorageAccountName: 'firstpipeline99'
+              backendAzureRmContainerName: 'firstpipelinecontainer'
+              backendAzureRmKey: '3RJYBeMSnZHC2OyXnK260HoiKTCjp3cMwKIuIG1LcD0umS5R76PyY1es2LR1ZNku'
+
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: 'firstServiceConnection'
+              environmentAzureRmOverrideSubscriptionID: 'aa688742-37f0-42a5-b2e3-0134d87fbc3e'
 
