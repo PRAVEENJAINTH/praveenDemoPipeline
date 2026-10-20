@@ -9,7 +9,7 @@ terraform {
     resource_group_name  = "firstPipelineStageFile"
     storage_account_name = "firstpipeline99"
     container_name       = "firstpipelinecontainer"
-    key                  = "$(Azure_Storage_Key)"
+    key                  = "ARM_ACCESS_KEY"
 
   }
 }

@@ -31,7 +31,7 @@ stages:
             backendServiceArm: 'firstServiceConnection'
             backendAzureRmStorageAccountName: 'firstpipeline99'
             backendAzureRmContainerName: 'firstpipelinecontainer'
-            backendAzureRmKey: $(Azure_Storage_Key)
+            ARM_ACCESS_KEY: $(Azure_Storage_Key)
 
 
   - stage: terraformvalidate
@@ -49,7 +49,7 @@ stages:
               backendServiceArm: 'firstServiceConnection'
               backendAzureRmStorageAccountName: 'firstpipeline99'
               backendAzureRmContainerName: 'firstpipelinecontainer'
-              backendAzureRmKey: $(Azure_Storage_Key)
+              ARM_ACCESS_KEY: $(Azure_Storage_Key)
           - task: TerraformTask@5
             inputs:
               provider: 'azurerm'
@@ -70,7 +70,7 @@ stages:
               backendServiceArm: 'firstServiceConnection'
               backendAzureRmStorageAccountName: 'firstpipeline99'
               backendAzureRmContainerName: 'firstpipelinecontainer'
-              backendAzureRmKey: $(Azure_Storage_Key)
+              ARM_ACCESS_KEY: $(Azure_Storage_Key)
 
           - task: TerraformTask@5
             inputs:
