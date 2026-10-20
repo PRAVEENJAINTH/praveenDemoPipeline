@@ -11,6 +11,10 @@ rgs = {
     name     = "rg-example3"
     location = "Central India"
   }
+  rg4 = {
+    name     = "rg-example4"
+    location = "Central India"
+  }
 }
 
    
