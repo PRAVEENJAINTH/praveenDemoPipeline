@@ -15,14 +15,7 @@ stages:
         displayName: terraform init
         steps:
         - checkout: self
-        # - task: TerraformTask@5
-        #   inputs:
-        #     provider: 'azurerm'
-        #     command: 'init'
-        #     backendServiceArm: 'firstRagistration'
-        #     backendAzureRmStorageAccountName: 'firstpipeline99'
-        #     backendAzureRmContainerName: 'firstpipelinecontainer'
-        #     backendAzureRmKey: 'dev.terraform'
+
           
         - task: TerraformTask@5
           inputs:
