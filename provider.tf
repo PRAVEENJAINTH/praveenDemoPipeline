@@ -6,10 +6,10 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "rg-statefile"
-    storage_account_name = "stagefile1233211"
-    container_name       = "tfstate"
-    key                  = "dev.terraform"
+    resource_group_name  = "firstPipelineStageFile"
+    storage_account_name = "firstpipeline99"
+    container_name       = "firstpipelinecontainer"
+    key                  = "$(Azure_Storage_Key)"
 
   }
 }
