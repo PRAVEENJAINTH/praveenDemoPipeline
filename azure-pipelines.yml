@@ -71,4 +71,23 @@ stages:
               command: 'plan'
               environmentServiceNameAzureRM: 'firstServiceConnection'
               environmentAzureRmOverrideSubscriptionID: 'aa688742-37f0-42a5-b2e3-0134d87fbc3e'
-
+  - stage: terraformApply
+    displayName: terraform Apply
+    jobs:
+      - job: 
+        displayName: terraform Apply
+        steps:
+          - checkout: self
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'firstServiceConnection'
+              backendAzureRmStorageAccountName: 'firstpipeline99'
+              backendAzureRmContainerName: 'firstpipelinecontainer'
+              backendAzureRmKey: 'dev_terraform'
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              environmentServiceNameAzureRM: 'firstServiceConnection'
