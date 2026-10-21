@@ -28,8 +28,8 @@ stages:
 
 
   - stage: terraformvalidate
-    dependsOn: terraforminit
     displayName: terraform validate
+    dependsOn: terraforminit
     jobs:
       - job: 
         displayName: terraform Validate
@@ -52,6 +52,7 @@ stages:
 
   - stage: terraformplan
     displayName: terraform plan
+    dependsOn: terraforminit
     jobs:
       - job: 
         displayName: terraform Plan
