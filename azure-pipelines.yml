@@ -28,6 +28,7 @@ stages:
 
 
   - stage: terraformvalidate
+    dependsOn: terraforminit
     displayName: terraform validate
     jobs:
       - job: 
@@ -49,8 +50,9 @@ stages:
               command: 'validate'
               environmentAzureRmUseIdTokenGeneration: true
 
-  - stage: terraformplan
-    displayName: terraform plan
+  - stage: terraformvalidate
+    dependsOn: terraforminit
+    displayName: terraform validate
     jobs:
       - job: 
         displayName: terraform Plan
