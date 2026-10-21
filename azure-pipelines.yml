@@ -49,9 +49,7 @@ stages:
               command: 'validate'
               environmentAzureRmUseIdTokenGeneration: true
 
-  - stage: terraformplan
-    displayName: terraform plan
-    jobs:
+  
       - job: 
         displayName: terraform Plan
         steps:
