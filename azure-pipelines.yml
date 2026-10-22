@@ -50,7 +50,7 @@ stages:
               command: 'validate'
               environmentAzureRmUseIdTokenGeneration: true
 
-  - stage: tfsec
+  - stage: tflint
     displayName: tfsec scan
     dependsOn: terraforminit
     jobs:
@@ -58,13 +58,21 @@ stages:
         displayName: tfsec Scan
         steps:
           - checkout: self 
-          - script: |
-              winget install -e --id TerraformLinters.tflint
-              winget install --exact --id terraform-linters.tflint
-              tfsec .
-              tflint --version
-              tflint --init
-              tflint          
+          - script: 
+          - task: PowerShell@2
+            inputs:
+              targetType: 'inline'
+              script: |
+                curl -sSLO https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_amd64.zip
+                curl -sSLO https://github.com/terraform-linters/tflint/releases/latest/download/checksums.txt
+                gh attestation verify checksums.txt -R terraform-linters/tflint
+                sha256sum --ignore-missing -c checksums.txt
+                unzip tflint_linux_amd64.zip
+                sudo install -c -v tflint /usr/local/bin/
+                tfsec .
+                tflint --version
+                tflint --init
+                tflint 
 
 
 
