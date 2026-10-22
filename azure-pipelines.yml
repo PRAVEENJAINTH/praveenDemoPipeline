@@ -69,6 +69,16 @@ stages:
                 
                 Invoke-WebRequest -Uri $zipUrl -OutFile "tflint_windows_amd64.zip"
                 Invoke-WebRequest -Uri $checksumUrl -OutFile "checksums.txt"
+          
+          - task: PowerShell@2
+            inputs:
+              targetType: 'inline'
+              script: |
+                # Install GitHub CLI if it is missing
+                if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
+                    winget install --id GitHub.cli --exact --silent `
+                        --accept-source-agreements --accept-package-agreements
+                }
           - task: PowerShell@2
             inputs:
               targetType: 'inline'
