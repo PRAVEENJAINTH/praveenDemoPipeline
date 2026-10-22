@@ -50,9 +50,27 @@ stages:
               command: 'validate'
               environmentAzureRmUseIdTokenGeneration: true
 
+  - stage: tfsec
+    displayName: tfsec scan
+    dependsOn: terraforminit
+    jobs:
+      - job: 
+        displayName: tfsec Scan
+        steps:
+          - checkout: self 
+          - script: |
+              curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+              tfsec .
+              tflint --version
+              tflint --init
+              tflint          
+
+
+
+
   - stage: terraformplan
     displayName: terraform plan
-    dependsOn: terraforminit
+   
     jobs:
       - job: 
         displayName: terraform Plan
