@@ -82,9 +82,7 @@ stages:
                         --accept-source-agreements `
                         --accept-package-agreements
                 
-                    if ($LASTEXITCODE -ne 0 -and -not (Test-Path $ghPath)) {
-                        throw "GitHub CLI installation failed"
-                    }
+                   
                 }
                 
                 # Verify GitHub CLI
