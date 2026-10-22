@@ -74,10 +74,37 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                # Install GitHub CLI if it is missing
-                if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
-                    winget install --id GitHub.cli --exact --silent `
-                        --accept-source-agreements --accept-package-agreements
+                # Install GitHub CLI only if it is missing
+                $ghPath = "C:\Program Files\GitHub CLI\gh.exe"
+                
+                if (-not (Test-Path $ghPath)) {
+                    winget install --exact --id GitHub.cli --source winget `
+                        --accept-source-agreements `
+                        --accept-package-agreements
+                
+                    if ($LASTEXITCODE -ne 0 -and -not (Test-Path $ghPath)) {
+                        throw "GitHub CLI installation failed"
+                    }
+                }
+                
+                # Verify GitHub CLI
+                if (-not (Test-Path $ghPath)) {
+                    $ghCommand = Get-Command gh.exe -ErrorAction SilentlyContinue
+                
+                    if ($ghCommand) {
+                        $ghPath = $ghCommand.Source
+                    } else {
+                        throw "GitHub CLI executable not found"
+                    }
+                }
+                
+                & $ghPath --version
+                
+                # Verify attestation
+                & $ghPath attestation verify checksums.txt -R terraform-linters/tflint
+                
+                if ($LASTEXITCODE -ne 0) {
+                    throw "GitHub attestation verification failed"
                 }
           - task: PowerShell@2
             inputs:
