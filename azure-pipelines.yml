@@ -60,6 +60,7 @@ stages:
           - checkout: self 
           - script: |
               winget install -e --id TerraformLinters.tflint
+              winget install --exact --id terraform-linters.tflint
               tfsec .
               tflint --version
               tflint --init
