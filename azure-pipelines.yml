@@ -140,6 +140,14 @@ stages:
         displayName: terraform Plan
         steps:
           - checkout: self
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'firstServiceConnection'
+              backendAzureRmStorageAccountName: 'firstpipeline99'
+              backendAzureRmContainerName: 'firstpipelinecontainer'
+              backendAzureRmKey: 'dev_terraform'
 
 
           - task: PowerShell@2
