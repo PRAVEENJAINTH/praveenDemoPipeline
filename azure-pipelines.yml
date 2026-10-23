@@ -29,7 +29,6 @@ stages:
 
   - stage: terraformvalidate
     displayName: terraform validate
-    dependsOn: terraforminit
     jobs:
       - job: 
         displayName: terraform Validate
@@ -52,7 +51,7 @@ stages:
 
   - stage: tflint
     displayName: tfsec scan
-    dependsOn: terraforminit
+    
     jobs:
       - job: 
         displayName: tfsec Scan
