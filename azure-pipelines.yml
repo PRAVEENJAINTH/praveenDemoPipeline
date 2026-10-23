@@ -174,8 +174,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                terraform force-unlock -force "$(e6fbe680-a245-96f6-7921-174bdfb8bd48
-                )"
+                terraform force-unlock -force "$(e6fbe680-a245-96f6-7921-174bdfb8bd48)"
 
           - task: TerraformTask@5
             inputs:
