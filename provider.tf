@@ -10,7 +10,7 @@ terraform {
     storage_account_name = "firstpipeline99"
     container_name       = "firstpipelinecontainer"
     key                  = "dev_terraform"
-    use_azuread_auth     = true
+  
 
   }
 }
