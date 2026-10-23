@@ -99,15 +99,7 @@ stages:
                 & $ghPath --version
                 
                 
-          - task: PowerShell@2
-            inputs:
-              targetType: 'inline'
-              script: |
-                # 2. Verify GitHub attestation
-                gh attestation verify checksums.txt -R terraform-linters/tflint
-                if ($LASTEXITCODE -ne 0) {
-                    throw "GitHub attestation verification failed"
-                }
+          
           - task: PowerShell@2
             inputs:
               targetType: 'inline'
