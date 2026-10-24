@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 pool:
@@ -129,8 +124,42 @@ stages:
                 # 7. Verify installation
                 tflint --version
           
-
-
+  # - stage: tfsec 
+  #   displayName: tfsec-scan   
+  #   jobs:
+  #     - job: 
+  #       displayName: tfsec-scan
+  #       steps:
+  #         - checkout: self
+  #         - task: PowerShell@2
+  #           displayName: 'Install tfsec'
+  #           inputs:
+  #             targetType: 'inline'
+  #             script: |
+  #             $ErrorActionPreference = 'Stop'
+  #             $version = 'v1.28.1'
+  #             $url = "https://github.com/aquasecurity/tfsec/releases/download/$version/tfsec-windows-amd64.exe"
+  #             $exe = "$(Agent.TempDirectory)\tfsec.exe"
+  #             Invoke-WebRequest -Uri $url -OutFile $exe
+  #             & $exe --version
+  #             if ($LASTEXITCODE -ne 0) {
+  #             throw "tfsec installation verification failed"
+  #       }
+  #         - task: PowerShell@2
+  #           displayName: 'Scan Terraform Security'
+  #           inputs:
+  #             targetType: 'inline'
+  #             script: |
+  #             $ErrorActionPreference = 'Stop'
+  #             $exe = "$(Agent.TempDirectory)\tfsec.exe"
+  #             $terraformPath = "$(Build.SourcesDirectory)\terraform"
+  #             if (-not (Test-Path $terraformPath)) {
+  #             throw "Terraform directory not found: $terraformPath"
+  #                }
+  #             & $exe $terraformPath --no-color
+  #             if ($LASTEXITCODE -ne 0) {
+  #             throw "tfsec scan failed or security findings were detected."
+  #             }
 
   - stage: terraformplan
     displayName: terraform plan
