@@ -30,11 +30,11 @@ stages:
 
 
   - stage: tflint
-    displayName: tfsec scan
+    displayName: tflint scan
     
     jobs:
       - job: 
-        displayName: tfsec Scan
+        displayName: tflint Scan
         steps:
           - checkout: self 
           - script: 
